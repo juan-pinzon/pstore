@@ -10,6 +10,10 @@ import { HighlightDirective } from './directives/highlight/highlight.directive';
 import { HomeComponent } from './components/home/home.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { BannerComponent } from './components/banner/banner.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
 	declarations: [
@@ -19,7 +23,11 @@ import { ContactComponent } from './components/contact/contact.component';
 		HighlightDirective,
 		HomeComponent,
 		ProductsComponent,
-		ContactComponent
+		ContactComponent,
+		HeaderComponent,
+		FooterComponent,
+		BannerComponent,
+		PageNotFoundComponent
 	],
 	imports: [
 		BrowserModule,
