@@ -18,4 +18,4 @@ import { ProductsComponent } from './components/products/products.component';
 		ProductRoutingModule
 	]
 })
-export class ProductsModule { }
+export class ProductModule { }
