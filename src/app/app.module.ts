@@ -21,8 +21,8 @@ import { CoreModule } from './core/core.module';
 		BrowserModule,
 		AppRoutingModule,
 		FormsModule,
+		CoreModule,
 		SharedModule,
-		CoreModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
