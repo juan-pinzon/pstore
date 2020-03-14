@@ -21,4 +21,16 @@ export class ProductsService {
 	getProduct(id: string) {
 		return this.httpClient.get<Product>(`${environment.url_api}/products/${id}`)
 	}
+
+	createProduct(product: Product) {
+		return this.httpClient.post(`${environment.url_api}/products`, product)
+	}
+
+	updateProduct(id:string, changes: Partial<Product>) {
+		return this.httpClient.put(`${environment.url_api}/products/${id}`, changes)
+	}
+
+	deleteProduct(id:string) {
+		return this.httpClient.delete(`${environment.url_api}/products/${id}`)
+	}
 }
