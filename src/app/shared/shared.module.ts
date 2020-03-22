@@ -16,16 +16,16 @@ import { MaterialModule } from '../material/material.module';
 		HeaderComponent,
 		FooterComponent
 	],
+	imports: [
+		CommonModule,
+		RouterModule,
+		MaterialModule
+	],
 	exports: [
 		ExponentialPipe,
 		HighlightDirective,
 		HeaderComponent,
 		FooterComponent
-	],
-	imports: [
-		CommonModule,
-		RouterModule,
-		MaterialModule
 	]
 })
 export class SharedModule { }
