@@ -30,6 +30,10 @@ const routes: Routes = [
 		]
 	},
 	{
+		path: 'admin',
+		loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+	},
+	{//Este se deja de último siempre
 		path: '**',
 		component: PageNotFoundComponent
 	}
