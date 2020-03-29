@@ -33,7 +33,7 @@ import { MatListModule } from '@angular/material/list';
 		MatButtonModule,
 		MatSidenavModule,
 		MatIconModule,
-		MatListModule
+		MatListModule,
 	],
 	exports: [
 		LayoutModule,
@@ -52,7 +52,7 @@ import { MatListModule } from '@angular/material/list';
 		MatButtonModule,
 		MatSidenavModule,
 		MatIconModule,
-		MatListModule
+		MatListModule,
 	]
 })
 export class MaterialModule { }
