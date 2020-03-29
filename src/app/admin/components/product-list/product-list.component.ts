@@ -36,7 +36,7 @@ export class ProductListComponent implements OnInit {
 		this.productService.deleteProduct(id)
 			.subscribe((response) => {
 				if (response) {
-					this.products = this.products.filter(item => item.id !== id)
+					this.products = [...this.products.filter(item => item.id !== id)]
 				}
 			})
 	}

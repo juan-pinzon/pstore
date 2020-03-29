@@ -9,10 +9,16 @@ import { MaterialModule } from '../material/material.module';
 import { NavComponent } from './components/nav/nav.component';
 
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductCreateComponent } from './components/product-create/product-create.component';
 
 
 @NgModule({
-	declarations: [ProductFormComponent, NavComponent, ProductListComponent],
+	declarations: [
+		ProductFormComponent,
+		NavComponent,
+		ProductListComponent,
+		ProductCreateComponent
+	],
 	imports: [
 		CommonModule,
 		AdminRoutingModule,
