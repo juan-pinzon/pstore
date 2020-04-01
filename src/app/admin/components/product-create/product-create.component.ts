@@ -5,6 +5,8 @@ import { ProductsService } from 'src/app/core/services/products/products.service
 import { Product } from 'src/app/core/models/product.model';
 import { Router } from '@angular/router'
 
+import { isPriceValidator } from 'src/app/utils/Validators'
+
 @Component({
 	selector: 'app-product-create',
 	templateUrl: './product-create.component.html',
@@ -40,10 +42,14 @@ export class ProductCreateComponent implements OnInit {
 		this.form = this.formBuilder.group({
 			id: ['', [Validators.required]],
 			title: ['', [Validators.required]],
-			price: ['', [Validators.required]],
+			price: ['', [Validators.required, isPriceValidator]],
 			image: [''],
 			description: ['', [Validators.required]]
 		})
+	}
+
+	get priceField() {
+		return this.form.get('price')
 	}
 
 }
