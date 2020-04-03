@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="saveProduct($event)">
+<form [formGroup]="form" (ngSubmit)="saveOrUpdateProduct($event)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>Producto</mat-card-title>
@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-xs"></div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!id">
         <div class="col-xs">
           <mat-form-field>
             <input type="text" matInput formControlName="id" placeholder="Id" />
