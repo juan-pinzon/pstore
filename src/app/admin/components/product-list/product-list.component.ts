@@ -19,10 +19,6 @@ export class ProductListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.fetchProducts()
-		// this.productService.createProduct({id: '460', title: 'hola taroal', description: 'muy bueno', price: 222, image: 'assets/'})
-		// 	.subscribe(product => {
-		// 		console.log(product)
-		// 	})
 	}
 
 	fetchProducts() {
@@ -36,7 +32,7 @@ export class ProductListComponent implements OnInit {
 		this.productService.deleteProduct(id)
 			.subscribe((response) => {
 				if (response) {
-					this.products = [...this.products.filter(item => item.id !== id)]
+					this.products = this.products.filter(item => item.id !== id)
 				}
 			})
 	}
