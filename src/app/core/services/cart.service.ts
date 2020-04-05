@@ -14,7 +14,7 @@ export class CartService {
 
 	constructor() { }
 
-	addToCarrt(product: Product) {
+	addToCart(product: Product) {
 		this.products = [...this.products, product]
 		this.cart.next(this.products)
 	}

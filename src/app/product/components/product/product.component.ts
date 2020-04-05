@@ -34,6 +34,6 @@ export class ProductComponent implements OnChanges, OnInit, OnDestroy {
 	addCart() {
 		// console.log('Añadir al carrito')
 		//this.productCliked.emit(this.product.id)
-		this.cartService.addToCarrt(this.product)
+		this.cartService.addToCart(this.product)
 	}
 }
