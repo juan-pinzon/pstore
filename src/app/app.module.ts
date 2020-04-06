@@ -17,13 +17,15 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { environment } from './../environments/environment';
+import { LoginLayoutComponent } from './components/login-layout/login-layout.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		ContactComponent,
 		PageNotFoundComponent,
-		LayoutComponent
+		LayoutComponent,
+		LoginLayoutComponent
 	],
 	imports: [
 		BrowserModule,

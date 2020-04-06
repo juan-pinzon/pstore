@@ -1,1 +1,45 @@
-<p>register works!</p>
+<form [formGroup]="form" (ngSubmit)="register($event)">
+	<mat-card>
+		<mat-card-title>Register</mat-card-title>
+		<mat-card-content>
+			<div class="row">
+				<div class="col-xs">
+					<mat-form-field>
+						<input type="text" placeholder="Email" matInput formControlName="email" />
+						<mat-error *ngIf="emailField.hasError('required')">
+								El correo electrónico es requerido
+						</mat-error>
+						<mat-error *ngIf="emailField.hasError('email')">
+								El correo no tiene un formato válido
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs">
+					<mat-form-field>
+						<input type="password" placeholder="Password" matInput formControlName="password" />
+						<mat-error *ngIf="passwordField.hasError('required')">
+							La contraseña es requerida
+						</mat-error>
+						<mat-error *ngIf="passwordField.hasError('minlength')">
+							La contraseña debe tener mínimo 7 caracteres
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</mat-card-content>
+		<mat-card-actions class="end-xs">
+			<button type="submit" mat-raised-button color="primary">Sign up</button>
+			<a mat-raised-button>Cancelar</a>
+		</mat-card-actions>
+		<mat-card-footer>
+			<mat-progress-bar
+          class="example-margin"
+          color="primary"
+          mode="indeterminate"
+					*ngIf="showLoading">
+      </mat-progress-bar>
+		</mat-card-footer>
+	</mat-card>
+</form>

@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
 	declarations: [],
@@ -34,7 +35,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 		MatSidenavModule,
 		MatIconModule,
 		MatListModule,
-		MatStepperModule
+		MatStepperModule,
+		MatProgressBarModule
 	],
 	exports: [
 		LayoutModule,
@@ -53,7 +55,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 		MatSidenavModule,
 		MatIconModule,
 		MatListModule,
-		MatStepperModule
+		MatStepperModule,
+		MatProgressBarModule
 	]
 })
 export class MaterialModule { }
