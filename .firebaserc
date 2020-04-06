@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pstore-9796b": {
+      "hosting": {
+        "pstore": [
+          "pstore-9796b"
+        ]
+      }
+    }
+  }
+}

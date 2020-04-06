@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "pstore",
+      "public": "dist/pstore",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

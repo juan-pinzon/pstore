@@ -16,11 +16,13 @@
     "@angular/common": "~9.1.0",
     "@angular/compiler": "~9.1.0",
     "@angular/core": "~9.1.0",
+    "@angular/fire": "^6.0.0",
     "@angular/forms": "~9.1.0",
     "@angular/material": "^9.0.1",
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "firebase": "^7.13.2",
     "flexboxgrid": "^6.3.1",
     "rxjs": "~6.5.4",
     "swiper": "^5.3.1",
@@ -46,6 +48,11 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.7.5"
+    "typescript": "~3.7.5",
+    "@angular-devkit/architect": "~0.900",
+    "firebase-tools": "^8.0.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1"
   }
 }
