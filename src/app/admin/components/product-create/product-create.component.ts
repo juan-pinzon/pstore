@@ -6,6 +6,9 @@ import { Product } from 'src/app/core/models/product.model';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
 import { isPriceValidator } from 'src/app/utils/Validators'
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-product-create',
@@ -16,12 +19,14 @@ export class ProductCreateComponent implements OnInit {
 
 	form: FormGroup
 	id: string
+	image$: Observable<any>
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private productsService: ProductsService,
 		private router: Router,
-		private activedRoute: ActivatedRoute) {
+		private activedRoute: ActivatedRoute,
+		private afStorage: AngularFireStorage) {
 		this.activedRoute.params.subscribe((params: Params) => {
 			this.id = params.id
 		})
@@ -70,6 +75,24 @@ export class ProductCreateComponent implements OnInit {
 					this.form.patchValue(product)
 				})
 		}
+	}
+
+	uploadFile(event) {
+		const file = event.target.files[0];
+		const filename = `images/${file.name}`
+		const fileRef = this.afStorage.ref(filename)
+		const task = this.afStorage.upload(filename, file)
+
+		task.snapshotChanges()
+			.pipe(
+				finalize(() => {
+					this.image$ = fileRef.getDownloadURL()
+					this.image$.subscribe(url => {
+						this.form.get('image').setValue(url)
+					})
+				})
+			)
+			.subscribe()
 	}
 
 	private buildForm() {
