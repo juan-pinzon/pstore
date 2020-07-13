@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductComponent } from './components/product/product.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { ProductsComponent } from './components/products/products.component';
+import { ProductsComponent } from './containers/products/products.component';
 import { MaterialModule } from '../material/material.module';
 
 

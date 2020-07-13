@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { ProductsService } from 'src/app/core/services/products/products.service'
-import { Product } from 'src/app/core/models/product.model';
+import { ProductsService } from '@core/services/products/products.service'
+import { Product } from '@core/models/product.model';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
 import { isPriceValidator } from 'src/app/utils/Validators'
