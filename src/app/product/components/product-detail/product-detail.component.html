@@ -1,5 +1,5 @@
 <a routerLink="/products">Regresar</a>
-<div class="detail" *ngIf="product">
+<div class="detail" *ngIf="(product$ | async) as product">
   <div class="detail__img">
     <img [src]="product.image" [alt]="product.title" />
   </div>
