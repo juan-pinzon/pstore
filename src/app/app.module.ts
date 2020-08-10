@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFireStorageModule } from '@angular/fire/storage'
+import { AngularFirestoreModule } from '@angular/fire/firestore'
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { environment } from './../environments/environment';
 import { LoginLayoutComponent } from './components/login-layout/login-layout.component';
+
+import { AuthInterceptor } from './auth.interceptor'
 
 @NgModule({
 	declarations: [
@@ -37,9 +40,16 @@ import { LoginLayoutComponent } from './components/login-layout/login-layout.com
 		HttpClientModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireAuthModule,
-		AngularFireStorageModule
+		AngularFireStorageModule,
+		AngularFirestoreModule
 	],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
+			multi: true
+		}
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

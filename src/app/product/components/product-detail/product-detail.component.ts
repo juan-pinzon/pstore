@@ -28,4 +28,16 @@ export class ProductDetailComponent implements OnInit {
 			)
 	}
 
+	getUsers() {
+		this.productService.getRandomUsers()
+			.subscribe(
+				data => {
+					console.log(data)
+				},
+				error => {
+					console.log(error, 'Muchos errores')
+				}
+			)
+	}
+
 }
