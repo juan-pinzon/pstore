@@ -7,13 +7,6 @@
       <div class="row">
         <div class="col-xs"></div>
       </div>
-      <div class="row" *ngIf="!id">
-        <div class="col-xs">
-          <mat-form-field>
-            <input type="text" matInput formControlName="id" placeholder="Id" />
-          </mat-form-field>
-        </div>
-      </div>
       <div class="row">
         <div class="col-xs">
           <mat-form-field>
@@ -41,7 +34,7 @@
       </div>
 			<div class="row">
 				<div class="col-xs">
-					<img *ngIf="(image$ |async) as image" [src]="image" alt="La mi">
+					<img *ngIf="(image$ | async) as image" [src]="image" alt="La mi">
 					<input type="file" (change)="uploadFile($event)" />
 				</div>
 			</div>
