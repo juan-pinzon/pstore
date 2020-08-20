@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '@core/services/products/products.service';
 import { Product } from '@core/models/product.model';
 
+import { tap } from "rxjs/operators";
+import { Observable } from 'rxjs';
+
 @Component({
 	selector: 'app-products',
 	templateUrl: './products.component.html',
@@ -9,7 +12,7 @@ import { Product } from '@core/models/product.model';
 })
 export class ProductsComponent implements OnInit {
 
-	products: Product[]
+	products$: Observable<Product[]>
 
 	constructor(private productsService: ProductsService) { }
 
@@ -22,10 +25,7 @@ export class ProductsComponent implements OnInit {
 	}
 
 	fetchProducts() {
-		this.productsService.getAllProducts()
-			.subscribe(products => {
-				this.products = products
-			})
+		this.products$ = this.productsService.getAllProducts()
 	}
 
 }
