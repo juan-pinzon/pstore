@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Product } from 'src/app/core/models/product.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { throwError, Observable } from 'rxjs'
-import { map, catchError, retry } from 'rxjs/operators'
+import { map, catchError, retry, tap, take } from 'rxjs/operators'
 
 import { environment } from 'src/environments/environment'
 
@@ -15,20 +16,35 @@ import { HandleHttpResponseError } from 'src/app/utils/HandleHttpResponseError'
 export class ProductsService {
 
 	products: Product[] = []
+	productsCollection: AngularFirestoreCollection<Product>
 
 
-	constructor(private httpClient: HttpClient) { }
+	constructor(
+		private httpClient: HttpClient,
+		private afs: AngularFirestore
+		) {
+			this.productsCollection = this.afs.collection<Product>('products')
+		}
 
 	getAllProducts() {
-		return this.httpClient.get<Product[]>(`${environment.url_api}/products`)
+		return this.productsCollection.valueChanges({ idField: 'id' })
+			.pipe(
+				map(response => response as Product[])
+			)
+		// return this.afs.collection<Product[]>('products').valueChanges({ idField: 'id'})
+		// return this.httpClient.get<Product[]>(`${environment.url_api}/products`)
 	}
 
 	getProduct(id: string) {
-		return this.httpClient.get<Product>(`${environment.url_api}/products/${id}`)
+		return this.afs.collection<Product>('products').doc(id).valueChanges()
+			.pipe(map(response => response as Product))
+		// return this.httpClient.get<Product>(`${environment.url_api}/products/${id}`)
 	}
 
 	createProduct(product: Product) {
-		return this.httpClient.post(`${environment.url_api}/products`, product)
+		const id = this.afs.createId()
+		return this.productsCollection.doc(id).set(product)
+		// return this.httpClient.post(`${environment.url_api}/products`, product)
 	}
 
 	updateProduct(id: string, changes: Partial<Product>) {
