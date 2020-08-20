@@ -27,9 +27,7 @@ export class ProductCreateComponent implements OnInit {
 		private router: Router,
 		private activedRoute: ActivatedRoute,
 		private afStorage: AngularFireStorage) {
-		this.activedRoute.params.subscribe((params: Params) => {
-			this.id = params.id
-		})
+		this.id = this.activedRoute.snapshot.params.id
 		this.buildForm()
 	}
 
@@ -46,14 +44,16 @@ export class ProductCreateComponent implements OnInit {
 		}
 	}
 
-	saveProduct() {
+	async saveProduct() {
 		if (this.form.valid) {
 			const product: Product = this.form.value
-			this.productsService.createProduct(product)
-				.subscribe(response => {
-					console.log(response)
-					this.router.navigate(['./admin/products'])
-				})
+			try {
+				await this.productsService.createProduct(product)
+				this.router.navigate(['./admin/products'])
+			} catch (error) {
+				alert('un grave error creando el producto')
+				console.error(error)
+			}
 		}
 	}
 
@@ -70,10 +70,16 @@ export class ProductCreateComponent implements OnInit {
 
 	getOne() {
 		if (this.id) {
+			this.form.disable()
 			this.productsService.getProduct(this.id)
-				.subscribe(product => {
+			.subscribe(product => {
+				console.log(product)
+				if (product) {
 					this.form.patchValue(product)
-				})
+					this.form.enable()
+				}
+			})
+
 		}
 	}
 
@@ -97,7 +103,7 @@ export class ProductCreateComponent implements OnInit {
 
 	private buildForm() {
 		this.form = this.formBuilder.group({
-			id: ['', [Validators.required]],
+			// id: ['', [Validators.required]],
 			title: ['', [Validators.required]],
 			price: ['', [Validators.required, isPriceValidator]],
 			image: [''],
