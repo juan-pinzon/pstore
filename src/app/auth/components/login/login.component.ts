@@ -30,9 +30,8 @@ export class LoginComponent implements OnInit {
 			this.form.disable()
 			const value = this.form.value
 			this.authService.login(value.email, value.password)
-				.then(response => {
-					console.log(response)
-					this.router.navigate(['/admin'])
+				.then(async response => {
+					await this.router.navigate(['/admin'])
 				})
 				.catch(() => {
 					alert('Usuario o contraseña inválido')

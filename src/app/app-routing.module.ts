@@ -6,7 +6,7 @@ import { PreloadService } from '@core/services/preload.service';
 import { ContactComponent } from './components/contact/contact.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { AdminGuard } from './core/guards/admin.guard';
+import { AdminGuard } from '@core/guards/admin.guard';
 
 
 const routes: Routes = [
