@@ -7,7 +7,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router'
 
 import { isPriceValidator } from 'src/app/utils/Validators'
 import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
+import { finalize, first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -72,8 +72,8 @@ export class ProductCreateComponent implements OnInit {
 		if (this.id) {
 			this.form.disable()
 			this.productsService.getProduct(this.id)
+			.pipe(first())
 			.subscribe(product => {
-				console.log(product)
 				if (product) {
 					this.form.patchValue(product)
 					this.form.enable()
