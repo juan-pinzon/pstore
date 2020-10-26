@@ -40,7 +40,8 @@
 			</div>
     </mat-card-content>
 		<mat-card-actions>
-			<button type="submit" mat-raised-button [disabled]="form.invalid">Guardar</button>
+			<button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Guardar</button>
+			<a routerLink="/admin/products" mat-raised-button>Cancelar</a>
 		</mat-card-actions>
   </mat-card>
 </form>
