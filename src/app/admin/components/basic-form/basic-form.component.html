@@ -1,0 +1,112 @@
+<form [formGroup]="form" (ngSubmit)="save($event)">
+	<div formGroupName="fullName">
+		<mat-form-field>
+			<mat-label>Name</mat-label>
+			<input type="text" matInput formControlName="name"/>
+			<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+			<mat-error *ngIf="nameField.touched && nameField.invalid">
+				<ng-container *ngIf="nameField.hasError('required')">El campo nombre es requerido</ng-container>
+				<ng-container *ngIf="nameField.hasError('maxlength')">El campo nombre no puede tener más de 10 caracteres</ng-container>
+			</mat-error>
+		</mat-form-field>
+		<br/>
+		<label for="lastNameField">LastName {{ lastNameField.valid }}</label>
+		<input type="text" id="lastNameField" formControlName="lastName"/>
+	</div>
+
+	<div>
+		<label for="emailField">Email</label>
+		<input type="email" id="emailField" formControlName="email"/>
+		<div class="messages" *ngIf="emailField.touched && emailField.invalid">
+			<p *ngIf="emailField.hasError('required')">
+				<strong>El campo de email es requerido</strong>
+			</p>
+			<p *ngIf="emailField.hasError('email')">
+				<strong>El campo de email, debe tener un formato correcto</strong>
+			</p>
+		</div>
+	</div>
+
+	<div>
+		<label for="phoneField">Phone</label>
+		<input type="tel" id="phoneField" formControlName="phone"/>
+	</div>
+
+	<div>
+		<label for="colorField">Color</label>
+		<input type="color" id="colorField" formControlName="color"/>
+	</div>
+
+	<div>
+		<label for="dateField">Email</label>
+		<input type="date" id="dateField" formControlName="date"/>
+	</div>
+
+	<div>
+		<label for="ageField">Age</label>
+		<input type="number" id="ageField" formControlName="age"/>
+		<div class="messages" *ngIf="ageField.touched && ageField.invalid">
+			<p *ngIf="ageField.hasError('min')">
+				<strong>El campo edad debe tener mínimo 18 años</strong>
+			</p>
+			<p *ngIf="ageField.hasError('max')">
+				<strong>El campo edad debe tener máximo 100 años</strong>
+			</p>
+		</div>
+	</div>
+
+	<div>
+		<label for="categoryField">Category: {{categoryField.value}}</label>
+		<select id="categoryField" formControlName="category">
+			<option value="1">Category 1</option>
+			<option value="2">Category 2</option>
+			<option value="3">Category 3</option>
+			<option value="4">Category 4</option>
+		</select>
+	</div>
+
+	<div>
+		<label for="tagField">Tag: {{tagField.value}}</label>
+		<select id="tagField" formControlName="tag" multiple>
+			<option value="1">Tag 1</option>
+			<option value="2">Tag 2</option>
+			<option value="3">Tag 3</option>
+			<option value="4">Tag 4</option>
+		</select>
+	</div>
+
+	<div>
+		<label for="agreeField">Agree {{agreeField.value}}</label>
+		<input type="checkbox" id="agreeField" formControlName="agree"/>
+		<div class="messages" *ngIf="agreeField.touched && agreeField.invalid">
+			<p *ngIf="agreeField.hasError('required')">
+				<strong>Debe aceptar los términos</strong>
+			</p>
+		</div>
+	</div>
+
+	<div>
+		Gender {{genderField.value}}
+		<label>
+			<input type="radio" name="gender" value="male" formControlName="gender"/> Male
+		</label>
+		<label>
+			<input type="radio" name="gender" value="female" formControlName="gender"/> Female
+		</label>
+	</div>
+
+	<div>
+		Zone {{zoneField.value}}
+		<label>
+			<input type="radio" name="zone" value="zone-1" formControlName="zone"/> Zone 1
+		</label>
+		<label>
+			<input type="radio" name="zone" value="zone-2" formControlName="zone"/> Zone 2
+		</label>
+		<label>
+			<input type="radio" name="zone" value="zone-3" formControlName="zone"/> Zone 3
+		</label>
+	</div>
+
+	<button type="submit">Enviar</button>
+</form>
