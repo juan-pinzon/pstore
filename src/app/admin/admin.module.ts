@@ -10,6 +10,7 @@ import { NavComponent } from './components/nav/nav.component';
 
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { BasicFormComponent } from './components/basic-form/basic-form.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ProductCreateComponent } from './components/product-create/product-crea
 		ProductFormComponent,
 		NavComponent,
 		ProductListComponent,
-		ProductCreateComponent
+		ProductCreateComponent,
+		BasicFormComponent
 	],
 	imports: [
 		CommonModule,
