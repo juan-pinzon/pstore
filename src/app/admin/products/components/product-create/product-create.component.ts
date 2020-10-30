@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { ProductsService } from '@core/services/products/products.service'
 import { Product } from '@core/models/product.model';
-import { Router, ActivatedRoute, Params } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 
 import { isPriceValidator } from 'src/app/utils/Validators'
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -49,7 +49,7 @@ export class ProductCreateComponent implements OnInit {
 			const product: Product = this.form.value
 			try {
 				await this.productsService.createProduct(product)
-				this.router.navigate(['./admin/products'])
+				await this.router.navigate(['./admin/products'])
 			} catch (error) {
 				alert('un grave error creando el producto')
 				console.error(error)
@@ -61,9 +61,9 @@ export class ProductCreateComponent implements OnInit {
 		if (this.form.valid) {
 			const product: Product = this.form.value
 			this.productsService.updateProduct(this.id, product)
-				.subscribe(response => {
+				.subscribe(async response => {
 					console.log(response)
-					this.router.navigate(['./admin/products'])
+					await this.router.navigate(['./admin/products'])
 				})
 		}
 	}
@@ -72,9 +72,9 @@ export class ProductCreateComponent implements OnInit {
 		if (this.id) {
 			this.form.disable()
 			this.productsService.getProduct(this.id)
-			.pipe(first())
 			.subscribe(product => {
 				if (product) {
+					this.form.addControl('id', this.formBuilder.control(null, Validators.required))
 					this.form.patchValue(product)
 					this.form.enable()
 				}

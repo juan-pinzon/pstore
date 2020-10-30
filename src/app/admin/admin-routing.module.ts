@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductFormComponent } from './products/components/product-form/product-form.component';
 import { NavComponent } from './components/nav/nav.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductCreateComponent } from './components/product-create/product-create.component';
 import {BasicFormComponent} from './components/basic-form/basic-form.component';
 
 
@@ -18,19 +16,15 @@ const routes: Routes = [
 			},
 			{
 				path: 'products',
-				component: ProductListComponent
-			},
-			{
-				path: 'products/create',
-				component: ProductCreateComponent
-			},
-			{
-				path: 'products/edit/:id',
-				component: ProductCreateComponent
+				loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
 			},
 			{
 				path: 'basic',
 				component: BasicFormComponent
+			},
+			{
+				path: 'categories',
+				loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule)
 			}
 		]
 	}

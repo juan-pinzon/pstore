@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { throwError, Observable } from 'rxjs'
-import { map, catchError, retry, tap, take } from 'rxjs/operators'
+import {map, catchError, retry, tap, take, first} from 'rxjs/operators'
 
 import { environment } from 'src/environments/environment'
 
@@ -36,8 +36,12 @@ export class ProductsService {
 	}
 
 	getProduct(id: string) {
-		return this.afs.collection<Product>('products').doc(id).valueChanges()
-			.pipe(map(response => response as Product))
+		return this.productsCollection.doc(id).valueChanges()
+			.pipe(first())
+			.pipe(map((response: Product) => {
+				response.id = id
+				return response
+			}))
 		// return this.httpClient.get<Product>(`${environment.url_api}/products/${id}`)
 	}
 
