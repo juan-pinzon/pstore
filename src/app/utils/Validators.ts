@@ -20,3 +20,15 @@ export const passwordValidator = (control: AbstractControl) => {
 	}
 	return null
 }
+
+export const matchPasswordValidator = (control: AbstractControl) => {
+	const password = control.get('password').value
+	const confirmPassword = control.get('confirmPassword').value
+
+	if (password !== confirmPassword) {
+		console.log(password, confirmPassword)
+		return { match_password: true }
+	}
+
+	return null
+}
