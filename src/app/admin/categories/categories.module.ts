@@ -1,14 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { CategoriesRoutingModule } from './categories-routing.module';
+import {CategoriesRoutingModule} from './categories-routing.module';
+import {CategoriesComponent} from './components/categories/categories.component';
+import {CategoriesFormComponent} from './components/categories-form/categories-form.component';
+import {MaterialModule} from '../../material/material.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    CategoriesRoutingModule
-  ]
+	declarations: [CategoriesComponent, CategoriesFormComponent],
+	imports: [
+		CommonModule,
+		CategoriesRoutingModule,
+		MaterialModule,
+		ReactiveFormsModule
+	]
 })
-export class CategoriesModule { }
+export class CategoriesModule {
+}

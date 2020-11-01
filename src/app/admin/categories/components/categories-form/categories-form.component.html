@@ -1,0 +1,45 @@
+<form [formGroup]="form" (ngSubmit)="saveOrUpdateCategory($event)">
+	<div class="row center-xs">
+		<div class="col-xs-3 start-xs">
+			<mat-card>
+				<mat-card-header>
+					<mat-card-title>Crear Categoría</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<div class="row">
+						<div class="col-xs">
+							<mat-form-field>
+								<mat-label>Nombre</mat-label>
+								<input type="text" matInput formControlName="name" />
+								<mat-error *ngIf="nameField.touched && nameField.invalid">
+									<ng-container *ngIf="nameField.hasError('required')">El nombre es requerido</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs">
+							<label class="btn-upload">
+								<button type="button" mat-raised-button (click)="fileInput.click()">
+									<mat-icon aria-hidden="false" aria-label="Carga de archivo">cloud_upload</mat-icon>
+									Cargar Imagen
+								</button>
+								<input type="file" #fileInput (change)="uploadFile($event)" />
+							</label>
+							<mat-error *ngIf="imageField.touched && imageField.invalid">
+								<ng-container *ngIf="imageField.hasError('required')">La imagen es requerida</ng-container>
+							</mat-error>
+							<mat-progress-bar *ngIf="showProgressBar" mode="determinate" [value]="percentageProgressBar"></mat-progress-bar>
+							<span>{{ filename }}</span>
+						</div>
+					</div>
+				</mat-card-content>
+				<mat-card-actions>
+					<button type="submit" mat-raised-button color="primary">Guardar</button>
+					<a routerLink="/admin/categories" mat-raised-button>Cancelar</a>
+				</mat-card-actions>
+			</mat-card>
+		</div>
+	</div>
+</form>
