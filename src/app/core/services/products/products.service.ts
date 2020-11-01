@@ -16,12 +16,12 @@ import { HandleHttpResponseError } from 'src/app/utils/HandleHttpResponseError'
 export class ProductsService {
 
 	products: Product[] = []
-	productsCollection: AngularFirestoreCollection<Product>
+	private productsCollection: AngularFirestoreCollection<Product>
 
 
 	constructor(
 		private httpClient: HttpClient,
-		private afs: AngularFirestore
+		private readonly afs: AngularFirestore
 		) {
 			this.productsCollection = this.afs.collection<Product>('products')
 		}
