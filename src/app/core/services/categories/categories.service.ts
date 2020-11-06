@@ -4,6 +4,8 @@ import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firest
 
 import { Category } from '@core/models/category.model'
 import {AngularFireStorage} from '@angular/fire/storage';
+import {debounceTime, first, map} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -30,5 +32,26 @@ export class CategoriesService {
 		const ref = this.storage.ref(path)
 		const task = this.storage.upload(path, image)
 		return { task, ref }
+	}
+
+	getCategories() {
+		return this.categoriesCollection.valueChanges({ idField: 'id' })
+			.pipe(
+				map(response => response as Category[])
+			)
+	}
+
+	checkAvailabilityCategory(name: string) {
+		return this.afs.collection<Category>('categories', ref => ref.where('name', '==', name))
+			.valueChanges()
+			.pipe(
+				first(),
+				map(res => {
+					if (res.length !== 0) {
+						return { not_available: true }
+					}
+					return null
+				})
+			)
 	}
 }

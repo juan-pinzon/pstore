@@ -13,6 +13,7 @@
 								<input type="text" matInput formControlName="name" />
 								<mat-error *ngIf="nameField.touched && nameField.invalid">
 									<ng-container *ngIf="nameField.hasError('required')">El nombre es requerido</ng-container>
+									<ng-container *ngIf="nameField.hasError('not_available')">Esta categoría ya existe</ng-container>
 								</mat-error>
 							</mat-form-field>
 						</div>

@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Category} from '@core/models/category.model';
-import {CategoriesService} from '@core/services/categories/categories.service';
 import {Router} from '@angular/router';
 import {finalize, map} from 'rxjs/operators';
 
+import {Category} from '@core/models/category.model';
+import {CategoriesService} from '@core/services/categories/categories.service';
+import { checkAvailabilityCategoryValidator } from '../../../../utils/Validators'
 
 @Component({
 	selector: 'app-categories-form',
@@ -66,7 +67,7 @@ export class CategoriesFormComponent implements OnInit {
 
 	private buildForm(): void {
 		this.form = this.formBuilder.group({
-			name: ['', Validators.required],
+			name: ['', Validators.required, checkAvailabilityCategoryValidator(this.categoriesService)],
 			image: ['', Validators.required]
 		})
 	}

@@ -1,4 +1,5 @@
 import { AbstractControl } from '@angular/forms'
+import {CategoriesService} from '@core/services/categories/categories.service';
 
 export const isPriceValidator = (control: AbstractControl) => {
 	const value = control.value
@@ -31,4 +32,11 @@ export const matchPasswordValidator = (control: AbstractControl) => {
 	}
 
 	return null
+}
+
+export const checkAvailabilityCategoryValidator = (categoriesService: CategoriesService) => {
+	return (control: AbstractControl) => {
+		const value = control.value
+		return categoriesService.checkAvailabilityCategory(value)
+	}
 }
