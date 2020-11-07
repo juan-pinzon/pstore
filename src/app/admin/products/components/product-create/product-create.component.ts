@@ -25,9 +25,9 @@ export class ProductCreateComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private productsService: ProductsService,
 		private router: Router,
-		private activedRoute: ActivatedRoute,
+		private activatedRoute: ActivatedRoute,
 		private afStorage: AngularFireStorage) {
-		this.id = this.activedRoute.snapshot.params.id
+		this.id = this.activatedRoute.snapshot.params.id
 		this.buildForm()
 	}
 
@@ -57,14 +57,16 @@ export class ProductCreateComponent implements OnInit {
 		}
 	}
 
-	updateProduct() {
+	async updateProduct() {
 		if (this.form.valid) {
 			const product: Product = this.form.value
-			this.productsService.updateProduct(this.id, product)
-				.subscribe(async response => {
-					console.log(response)
-					await this.router.navigate(['./admin/products'])
-				})
+			try {
+				await this.productsService.updateProduct(this.id, product)
+				await this.router.navigate(['./admin/products'])
+			} catch (e) {
+				alert('Un error actualizando el producto')
+				console.log(e)
+			}
 		}
 	}
 
@@ -74,7 +76,7 @@ export class ProductCreateComponent implements OnInit {
 			this.productsService.getProduct(this.id)
 			.subscribe(product => {
 				if (product) {
-					this.form.addControl('id', this.formBuilder.control(null, Validators.required))
+					// this.form.addControl('id', this.formBuilder.control(null, Validators.required))
 					this.form.patchValue(product)
 					this.form.enable()
 				}

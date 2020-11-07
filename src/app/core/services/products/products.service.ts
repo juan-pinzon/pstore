@@ -52,7 +52,8 @@ export class ProductsService {
 	}
 
 	updateProduct(id: string, changes: Partial<Product>) {
-		return this.httpClient.put(`${environment.url_api}/products/${id}`, changes)
+		return this.productsCollection.doc(id).update(changes)
+		// return this.httpClient.put(`${environment.url_api}/products/${id}`, changes)
 	}
 
 	deleteProduct(id: string) {

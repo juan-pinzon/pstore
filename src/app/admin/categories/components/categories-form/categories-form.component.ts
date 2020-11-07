@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {finalize, map} from 'rxjs/operators';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {finalize, map, switchMap} from 'rxjs/operators';
 
 import {Category} from '@core/models/category.model';
 import {CategoriesService} from '@core/services/categories/categories.service';
@@ -23,8 +23,10 @@ export class CategoriesFormComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		private categoriesService: CategoriesService,
-		private router: Router
+		private router: Router,
+		private activatedRoute: ActivatedRoute
 	) {
+		this.id = this.activatedRoute.snapshot.params.idCategory
 		this.buildForm()
 	}
 
@@ -57,11 +59,27 @@ export class CategoriesFormComponent implements OnInit {
 	}
 
 	getCategory() {
-
+		if (this.id) {
+			this.form.disable()
+			this.categoriesService.getCategory(this.id)
+				.subscribe((category: Category) => {
+					// this.form.addControl('id', this.formBuilder.control(null, Validators.required))
+					this.form.patchValue(category)
+					this.imageField.setValue(category.image)
+					this.form.enable()
+				})
+		}
 	}
 
-	updateCategory() {
-
+	async updateCategory() {
+		const category: Category = this.form.value
+		try {
+			await this.categoriesService.updateCategory(this.id, category)
+			await this.router.navigate(['/admin/categories'])
+		} catch (error) {
+			this.form.enable()
+			console.error(error)
+		}
 	}
 
 

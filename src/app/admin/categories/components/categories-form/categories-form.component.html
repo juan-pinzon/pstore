@@ -33,6 +33,9 @@
 							</mat-error>
 							<mat-progress-bar *ngIf="showProgressBar" mode="determinate" [value]="percentageProgressBar"></mat-progress-bar>
 							<span>{{ filename }}</span>
+							<picture>
+								<img *ngIf="imageField.value" [src]="imageField.value" alt="EpaColombia">
+							</picture>
 						</div>
 					</div>
 				</mat-card-content>

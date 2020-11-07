@@ -1,19 +1,17 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { Category } from '@core/models/category.model'
-import {AngularFireStorage} from '@angular/fire/storage';
-import {debounceTime, first, map} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { first, map } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class CategoriesService {
 
-	categories: Category[] = []
-	categoriesCollection: AngularFirestoreCollection<Category>
+	private categoriesCollection: AngularFirestoreCollection<Category>
 
 	constructor(
 		private httpClient: HttpClient,
@@ -39,6 +37,19 @@ export class CategoriesService {
 			.pipe(
 				map(response => response as Category[])
 			)
+	}
+
+	getCategory(id: string) {
+		return this.categoriesCollection.doc(id).valueChanges()
+			.pipe(first())
+			.pipe(map((response: Category) => {
+				response.id = id
+				return response
+			}))
+	}
+
+	updateCategory(id: string, data: Partial<Category>) {
+		return this.categoriesCollection.doc(id).update(data)
 	}
 
 	checkAvailabilityCategory(name: string) {
