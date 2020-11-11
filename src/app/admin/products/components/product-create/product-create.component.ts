@@ -37,36 +37,35 @@ export class ProductCreateComponent implements OnInit {
 
 	saveOrUpdateProduct(event: Event) {
 		event.preventDefault()
-		if (!this.id) {
-			this.saveProduct()
-		} else {
-			this.updateProduct()
+		this.form.markAllAsTouched()
+		if (this.form.valid) {
+			if (!this.id) {
+				this.saveProduct()
+			} else {
+				this.updateProduct()
+			}
 		}
 	}
 
 	async saveProduct() {
-		if (this.form.valid) {
-			const product: Product = this.form.value
-			try {
-				await this.productsService.createProduct(product)
-				await this.router.navigate(['./admin/products'])
-			} catch (error) {
-				alert('un grave error creando el producto')
-				console.error(error)
-			}
+		const product: Product = this.form.value
+		try {
+			await this.productsService.createProduct(product)
+			await this.router.navigate(['./admin/products'])
+		} catch (error) {
+			alert('un grave error creando el producto')
+			console.error(error)
 		}
 	}
 
 	async updateProduct() {
-		if (this.form.valid) {
-			const product: Product = this.form.value
-			try {
-				await this.productsService.updateProduct(this.id, product)
-				await this.router.navigate(['./admin/products'])
-			} catch (e) {
-				alert('Un error actualizando el producto')
-				console.log(e)
-			}
+		const product: Product = this.form.value
+		try {
+			await this.productsService.updateProduct(this.id, product)
+			await this.router.navigate(['./admin/products'])
+		} catch (e) {
+			alert('Un error actualizando el producto')
+			console.log(e)
 		}
 	}
 
@@ -105,16 +104,27 @@ export class ProductCreateComponent implements OnInit {
 
 	private buildForm() {
 		this.form = this.formBuilder.group({
-			// id: ['', [Validators.required]],
 			title: ['', [Validators.required]],
 			price: ['', [Validators.required, isPriceValidator]],
-			image: [''],
-			description: ['', [Validators.required]]
+			description: ['', [Validators.required]],
+			image: ['', Validators.required],
 		})
+	}
+
+	get titleField() {
+		return this.form.get('title')
 	}
 
 	get priceField() {
 		return this.form.get('price')
+	}
+
+	get descriptionField() {
+		return this.form.get('description')
+	}
+
+	get imageField() {
+		return this.form.get('image')
 	}
 
 }
