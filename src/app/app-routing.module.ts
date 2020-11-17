@@ -56,9 +56,10 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes, {
-		//preloadingStrategy: PreloadAllModules //Esto es para que se precarguen los módulos que se llaman onDemand o LazyLoading
-		preloadingStrategy: PreloadService
-	})],
+    //preloadingStrategy: PreloadAllModules //Esto es para que se precarguen los módulos que se llaman onDemand o LazyLoading
+    preloadingStrategy: PreloadService,
+    relativeLinkResolution: 'legacy'
+})],
 	exports: [RouterModule],
 	providers: [PreloadService]
 })
