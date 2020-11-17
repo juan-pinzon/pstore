@@ -107,6 +107,7 @@ export class ProductCreateComponent implements OnInit {
 			title: ['', [Validators.required]],
 			price: ['', [Validators.required, isPriceValidator]],
 			description: ['', [Validators.required]],
+			category: ['', Validators.required],
 			image: ['', Validators.required],
 		})
 	}
