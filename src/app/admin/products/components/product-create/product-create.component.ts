@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-
-import { ProductsService } from '@core/services/products/products.service'
-import { Product } from '@core/models/product.model';
 import { Router, ActivatedRoute } from '@angular/router'
+import { AngularFireStorage } from '@angular/fire/storage';
+
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { isPriceValidator } from 'src/app/utils/Validators'
-import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize, first } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+
+import { ProductsService } from '@core/services/products/products.service'
+import { CategoriesService } from '@core/services/categories/categories.service'
+import { Product } from '@core/models/product.model';
+import { Category } from '@core/models/category.model';
 
 @Component({
 	selector: 'app-product-create',
@@ -20,10 +23,12 @@ export class ProductCreateComponent implements OnInit {
 	form: FormGroup
 	id: string
 	image$: Observable<any>
+	categories$: Observable<Category[]>
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private productsService: ProductsService,
+		private categoriesServices: CategoriesService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private afStorage: AngularFireStorage) {
@@ -33,6 +38,7 @@ export class ProductCreateComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getOne()
+		this.getCategories()
 	}
 
 	saveOrUpdateProduct(event: Event) {
@@ -104,12 +110,16 @@ export class ProductCreateComponent implements OnInit {
 
 	private buildForm() {
 		this.form = this.formBuilder.group({
-			title: ['', [Validators.required]],
+			title: ['', [Validators.required, Validators.minLength(4)]],
 			price: ['', [Validators.required, isPriceValidator]],
-			description: ['', [Validators.required]],
-			category: ['', Validators.required],
+			description: ['', [Validators.required, Validators.minLength(10)]],
+			category_id: ['', Validators.required],
 			image: ['', Validators.required],
 		})
+	}
+
+	private getCategories() {
+		this.categories$ = this.categoriesServices.getCategories()
 	}
 
 	get titleField() {
@@ -126,6 +136,10 @@ export class ProductCreateComponent implements OnInit {
 
 	get imageField() {
 		return this.form.get('image')
+	}
+
+	get categoryField() {
+		return this.form.get('category_id')
 	}
 
 }
