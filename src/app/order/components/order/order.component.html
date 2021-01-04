@@ -27,6 +27,33 @@
   <mat-step>
     <ng-template matStepLabel>Datos personales</ng-template>
     <h2>Contenido</h2>
+		<form [formGroup]="form">
+			<div class="row">
+				<div class="col-xs">
+					<mat-form-field>
+						<mat-label>Nombre</mat-label>
+						<input type="text" placeholder="nombre" formControlName="name" matInput  />
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs">
+					<button type="button" mat-raised-button color="primary" (click)="addAddressField()">Agregar dirección</button>
+					<div formArrayName="address" *ngFor="let address of addressField.controls; let i=index">
+						<div [formGroupName]="i">
+							<mat-form-field>
+								<mat-label>ZipCode</mat-label>
+								<input type="text" placeholder="ZipCode" formControlName="zip" matInput  />
+							</mat-form-field>
+							<mat-form-field>
+								<mat-label>Texto</mat-label>
+								<input type="text" placeholder="Text" formControlName="text" matInput  />
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Pago</ng-template>
