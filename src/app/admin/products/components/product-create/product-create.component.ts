@@ -115,7 +115,10 @@ export class ProductCreateComponent implements OnInit {
 			description: ['', [Validators.required, Validators.minLength(10)]],
 			category_id: ['', Validators.required],
 			image: ['', Validators.required],
+			stock: [4, Validators.required]
 		})
+
+		this.form.get('stock').valueChanges.subscribe(console.log)
 	}
 
 	private getCategories() {
